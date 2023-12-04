@@ -19,7 +19,7 @@ function tarefasCSS(cb) {
         './node_modules/bootstrap/dist/css/bootstrap.css',
         './node_modules/@fortawesome/fontawesome-free/css/fontawesome.css',
         './vendor/owl/css/owl.css',
-        //'./vendor/jquery-ui/jquery-ui.css',
+        './vendor/jquery-ui/jquery-ui.css',
         './src/css/style.css'
     ])
         .pipe(stripCss())                   // remove comentários
@@ -39,7 +39,7 @@ function tarefasJS(cb) {
         './node_modules/bootstrap/dist/js/bootstrap.js',
         './vendor/owl/js/owl.js',
         './vendor/jquery-mask/jquery.mask.js',
-        './vendor/jquery-ui/jquery-ui.js',
+        //'./vendor/jquery-ui/jquery-ui.js',
         './src/js/custom.js'
     ])
 
@@ -83,7 +83,7 @@ function tarefasHTML(callback) {
     return callback()
 }
 
-gulp.task('server', function(){
+gulp.task('serve', function(){
 
     browserSync.init({
         server: {
@@ -94,8 +94,13 @@ gulp.task('server', function(){
     gulp.watch('./src/**/*').on('change', reload)
 })
 
+function end(cb){
+    console.log('tarefas concluídas')
+    return cb()
+}
 
-const process = series(tarefasHTML, tarefasJS, tarefasCSS)
+
+const process = series(tarefasHTML, tarefasJS, tarefasCSS, end)
 
 exports.styles = tarefasCSS
 exports.scripts = tarefasJS
